@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		210972901B9838BB003BBF45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109728F1B9838BB003BBF45 /* main.m */; };
+		210972931B9838BB003BBF45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 210972921B9838BB003BBF45 /* AppDelegate.m */; };
+		210972961B9838BB003BBF45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210972951B9838BB003BBF45 /* ViewController.m */; };
+		210972991B9838BB003BBF45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 210972971B9838BB003BBF45 /* Main.storyboard */; };
+		2109729B1B9838BB003BBF45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2109729A1B9838BB003BBF45 /* Images.xcassets */; };
+		2109729E1B9838BB003BBF45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2109729C1B9838BB003BBF45 /* LaunchScreen.xib */; };
+		210972AA1B9838BB003BBF45 /* TouristHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 210972A91B9838BB003BBF45 /* TouristHelperTests.m */; };
+		F0EC81CDA34DCF9AB62D9CCC /* libPods-TouristHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6171758BEC583F7EB130FBC /* libPods-TouristHelper.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		210972A41B9838BB003BBF45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 210972821B9838BB003BBF45 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 210972891B9838BB003BBF45;
+			remoteInfo = TouristHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2121E5AB1B98421400ABDD1F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2109728A1B9838BB003BBF45 /* TouristHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouristHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2109728E1B9838BB003BBF45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2109728F1B9838BB003BBF45 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		210972911B9838BB003BBF45 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		210972921B9838BB003BBF45 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		210972941B9838BB003BBF45 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		210972951B9838BB003BBF45 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		210972981B9838BB003BBF45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2109729A1B9838BB003BBF45 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2109729D1B9838BB003BBF45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		210972A31B9838BB003BBF45 /* TouristHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouristHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		210972A81B9838BB003BBF45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		210972A91B9838BB003BBF45 /* TouristHelperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouristHelperTests.m; sourceTree = "<group>"; };
+		2121E5961B98421400ABDD1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2121E5971B98421400ABDD1F /* TouristHelperCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouristHelperCore.h; sourceTree = "<group>"; };
+		2121E5A51B98421400ABDD1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2121E5A61B98421400ABDD1F /* TouristHelperCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouristHelperCoreTests.m; sourceTree = "<group>"; };
+		A1F0DA41CDA508B05A87328A /* Pods-TouristHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper.debug.xcconfig"; sourceTree = "<group>"; };
+		E8D1408F47FF4550801082FB /* Pods-TouristHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper.release.xcconfig"; sourceTree = "<group>"; };
+		F6171758BEC583F7EB130FBC /* libPods-TouristHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TouristHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		210972871B9838BB003BBF45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0EC81CDA34DCF9AB62D9CCC /* libPods-TouristHelper.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		210972A01B9838BB003BBF45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		210972811B9838BB003BBF45 = {
+			isa = PBXGroup;
+			children = (
+				2109728C1B9838BB003BBF45 /* TouristHelper */,
+				210972A61B9838BB003BBF45 /* TouristHelperTests */,
+				2121E5941B98421400ABDD1F /* TouristHelperCore */,
+				2121E5A31B98421400ABDD1F /* TouristHelperCoreTests */,
+				2109728B1B9838BB003BBF45 /* Products */,
+				34C3A918D3C23EC8E227FA6B /* Pods */,
+				8DAE64E542E9E8DD079B6523 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2109728B1B9838BB003BBF45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2109728A1B9838BB003BBF45 /* TouristHelper.app */,
+				210972A31B9838BB003BBF45 /* TouristHelperTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2109728C1B9838BB003BBF45 /* TouristHelper */ = {
+			isa = PBXGroup;
+			children = (
+				210972911B9838BB003BBF45 /* AppDelegate.h */,
+				210972921B9838BB003BBF45 /* AppDelegate.m */,
+				210972941B9838BB003BBF45 /* ViewController.h */,
+				210972951B9838BB003BBF45 /* ViewController.m */,
+				210972971B9838BB003BBF45 /* Main.storyboard */,
+				2109729A1B9838BB003BBF45 /* Images.xcassets */,
+				2109729C1B9838BB003BBF45 /* LaunchScreen.xib */,
+				2109728D1B9838BB003BBF45 /* Supporting Files */,
+			);
+			path = TouristHelper;
+			sourceTree = "<group>";
+		};
+		2109728D1B9838BB003BBF45 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2109728E1B9838BB003BBF45 /* Info.plist */,
+				2109728F1B9838BB003BBF45 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		210972A61B9838BB003BBF45 /* TouristHelperTests */ = {
+			isa = PBXGroup;
+			children = (
+				210972A91B9838BB003BBF45 /* TouristHelperTests.m */,
+				210972A71B9838BB003BBF45 /* Supporting Files */,
+			);
+			path = TouristHelperTests;
+			sourceTree = "<group>";
+		};
+		210972A71B9838BB003BBF45 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				210972A81B9838BB003BBF45 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2121E5941B98421400ABDD1F /* TouristHelperCore */ = {
+			isa = PBXGroup;
+			children = (
+				2121E5971B98421400ABDD1F /* TouristHelperCore.h */,
+				2121E5951B98421400ABDD1F /* Supporting Files */,
+			);
+			path = TouristHelperCore;
+			sourceTree = "<group>";
+		};
+		2121E5951B98421400ABDD1F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2121E5961B98421400ABDD1F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2121E5A31B98421400ABDD1F /* TouristHelperCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				2121E5A61B98421400ABDD1F /* TouristHelperCoreTests.m */,
+				2121E5A41B98421400ABDD1F /* Supporting Files */,
+			);
+			path = TouristHelperCoreTests;
+			sourceTree = "<group>";
+		};
+		2121E5A41B98421400ABDD1F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2121E5A51B98421400ABDD1F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		34C3A918D3C23EC8E227FA6B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A1F0DA41CDA508B05A87328A /* Pods-TouristHelper.debug.xcconfig */,
+				E8D1408F47FF4550801082FB /* Pods-TouristHelper.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8DAE64E542E9E8DD079B6523 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6171758BEC583F7EB130FBC /* libPods-TouristHelper.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		210972891B9838BB003BBF45 /* TouristHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 210972AD1B9838BB003BBF45 /* Build configuration list for PBXNativeTarget "TouristHelper" */;
+			buildPhases = (
+				7F203BDB4150FE29F6DDFAAE /* Check Pods Manifest.lock */,
+				210972861B9838BB003BBF45 /* Sources */,
+				210972871B9838BB003BBF45 /* Frameworks */,
+				210972881B9838BB003BBF45 /* Resources */,
+				2121E5AB1B98421400ABDD1F /* Embed Frameworks */,
+				09752E297303EC2C568532A3 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TouristHelper;
+			productName = TouristHelper;
+			productReference = 2109728A1B9838BB003BBF45 /* TouristHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		210972A21B9838BB003BBF45 /* TouristHelperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 210972B01B9838BB003BBF45 /* Build configuration list for PBXNativeTarget "TouristHelperTests" */;
+			buildPhases = (
+				2109729F1B9838BB003BBF45 /* Sources */,
+				210972A01B9838BB003BBF45 /* Frameworks */,
+				210972A11B9838BB003BBF45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				210972A51B9838BB003BBF45 /* PBXTargetDependency */,
+			);
+			name = TouristHelperTests;
+			productName = TouristHelperTests;
+			productReference = 210972A31B9838BB003BBF45 /* TouristHelperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		210972821B9838BB003BBF45 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = IttyBIttyApps;
+				TargetAttributes = {
+					210972891B9838BB003BBF45 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					210972A21B9838BB003BBF45 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 210972891B9838BB003BBF45;
+					};
+				};
+			};
+			buildConfigurationList = 210972851B9838BB003BBF45 /* Build configuration list for PBXProject "TouristHelper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 210972811B9838BB003BBF45;
+			productRefGroup = 2109728B1B9838BB003BBF45 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				210972891B9838BB003BBF45 /* TouristHelper */,
+				210972A21B9838BB003BBF45 /* TouristHelperTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		210972881B9838BB003BBF45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210972991B9838BB003BBF45 /* Main.storyboard in Resources */,
+				2109729E1B9838BB003BBF45 /* LaunchScreen.xib in Resources */,
+				2109729B1B9838BB003BBF45 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		210972A11B9838BB003BBF45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09752E297303EC2C568532A3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F203BDB4150FE29F6DDFAAE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		210972861B9838BB003BBF45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210972961B9838BB003BBF45 /* ViewController.m in Sources */,
+				210972931B9838BB003BBF45 /* AppDelegate.m in Sources */,
+				210972901B9838BB003BBF45 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2109729F1B9838BB003BBF45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210972AA1B9838BB003BBF45 /* TouristHelperTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		210972A51B9838BB003BBF45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 210972891B9838BB003BBF45 /* TouristHelper */;
+			targetProxy = 210972A41B9838BB003BBF45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		210972971B9838BB003BBF45 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				210972981B9838BB003BBF45 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2109729C1B9838BB003BBF45 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2109729D1B9838BB003BBF45 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		210972AB1B9838BB003BBF45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos8.4;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		210972AC1B9838BB003BBF45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos8.4;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		210972AE1B9838BB003BBF45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1F0DA41CDA508B05A87328A /* Pods-TouristHelper.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TouristHelperCore/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = TouristHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		210972AF1B9838BB003BBF45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8D1408F47FF4550801082FB /* Pods-TouristHelper.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TouristHelperCore/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = TouristHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		210972B11B9838BB003BBF45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TouristHelperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TouristHelper.app/TouristHelper";
+			};
+			name = Debug;
+		};
+		210972B21B9838BB003BBF45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TouristHelperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TouristHelper.app/TouristHelper";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		210972851B9838BB003BBF45 /* Build configuration list for PBXProject "TouristHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				210972AB1B9838BB003BBF45 /* Debug */,
+				210972AC1B9838BB003BBF45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		210972AD1B9838BB003BBF45 /* Build configuration list for PBXNativeTarget "TouristHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				210972AE1B9838BB003BBF45 /* Debug */,
+				210972AF1B9838BB003BBF45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		210972B01B9838BB003BBF45 /* Build configuration list for PBXNativeTarget "TouristHelperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				210972B11B9838BB003BBF45 /* Debug */,
+				210972B21B9838BB003BBF45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 210972821B9838BB003BBF45 /* Project object */;
+}

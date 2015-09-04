@@ -1,0 +1,1 @@
+../../../../../TouristHelperCore/TouristHelperCore/Services/LogService.h

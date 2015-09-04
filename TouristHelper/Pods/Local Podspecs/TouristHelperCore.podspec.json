@@ -1,0 +1,31 @@
+{
+  "name": "TouristHelperCore",
+  "version": "0.0.1",
+  "summary": "Provides core services for Tourist Helper App",
+  "description": "A longer description of NetworkLib in Markdown format.",
+  "license": "MIT (example)",
+  "authors": {
+    "Janidu Wanigasuriya": "janiduw@gmail.com"
+  },
+  "source_files": [
+    "TouristHelperCore",
+    "TouristHelperCore/**/*.{h,m}"
+  ],
+  "public_header_files": "TouristHelperCore/**/*.h",
+  "resources": "TouristHelperCore/*.png",
+  "requires_arc": true,
+  "platforms": {
+    "ios": "8.0"
+  },
+  "dependencies": {
+    "GoogleMaps": [
+
+    ],
+    "AFNetworking": [
+
+    ],
+    "CocoaLumberjack": [
+
+    ]
+  }
+}

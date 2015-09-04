@@ -1,0 +1,10 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.4'
+
+target 'TouristHelper' do
+ pod 'TouristHelperCore', :path => '../TouristHelperCore'
+end
+
+target 'TouristHelperTests' do
+
+end

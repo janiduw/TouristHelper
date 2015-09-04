@@ -1,0 +1,13 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.4'
+
+target 'TouristHelperCore' do
+	pod 'GoogleMaps'
+    pod 'AFNetworking'
+    pod 'CocoaLumberjack'
+end
+
+target 'TouristHelperCoreTests' do
+
+end
+
