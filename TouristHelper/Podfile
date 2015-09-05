@@ -3,6 +3,7 @@ platform :ios, '8.4'
 
 target 'TouristHelper' do
  pod 'TouristHelperCore', :path => '../TouristHelperCore'
+ pod 'PureLayout'
 end
 
 target 'TouristHelperTests' do

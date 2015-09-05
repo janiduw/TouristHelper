@@ -15,3 +15,6 @@ FOUNDATION_EXPORT double TouristHelperCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char TouristHelperCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TouristHelperCore/PublicHeader.h>
+#import "PlaceService.h"
+#import "LogService.h"
+#import "Place.h"

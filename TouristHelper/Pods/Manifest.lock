@@ -29,12 +29,14 @@ PODS:
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
   - GoogleMaps (1.10.2)
+  - PureLayout (3.0.1)
   - TouristHelperCore (0.0.1):
     - AFNetworking
     - CocoaLumberjack
     - GoogleMaps
 
 DEPENDENCIES:
+  - PureLayout
   - TouristHelperCore (from `../TouristHelperCore`)
 
 EXTERNAL SOURCES:
@@ -45,6 +47,7 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
+  PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   TouristHelperCore: 5e784efdb83c7f4b81aa08d3636433a63a6a9f91
 
 COCOAPODS: 0.38.2

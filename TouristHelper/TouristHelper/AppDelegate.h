@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TouristHelperCore/TouristHelperCore.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

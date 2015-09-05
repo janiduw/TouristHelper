@@ -20,6 +20,8 @@
     self.placeId = (NSUInteger) [[attributes valueForKeyPath:@"id"] integerValue];
     self.iconUrl = [attributes valueForKeyPath:@"icon"];
     
+    self.location = CLLocationCoordinate2DMake([[attributes valueForKeyPath:@"geometry.location.lat"] doubleValue],
+                                               [[attributes valueForKeyPath:@"geometry.location.lng"] doubleValue]);
     return self;
 }
 

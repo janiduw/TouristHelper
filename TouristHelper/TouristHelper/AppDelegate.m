@@ -6,7 +6,12 @@
 //  Copyright (c) 2015 Janiduw. All rights reserved.
 //
 
+@import GoogleMaps;
+
 #import "AppDelegate.h"
+
+#import "Constants.h"
+#import <TouristHelperCore/TouristHelperCore.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +21,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.    
+    // Override point for customization after application launch.
+    [GMSServices provideAPIKey:GMS_API_KEY];
     return YES;
 }
 
