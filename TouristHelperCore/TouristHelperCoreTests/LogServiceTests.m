@@ -9,11 +9,11 @@
 #import <XCTest/XCTest.h>
 #import "LogService.h"
 
-@interface LogServiceTest : XCTestCase
+@interface LogServiceTests : XCTestCase
 
 @end
 
-@implementation LogServiceTest
+@implementation LogServiceTests
 
 - (void)setUp {
     [super setUp];

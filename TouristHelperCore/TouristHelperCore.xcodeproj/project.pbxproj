@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211EA6F81B9A674E00867F26 /* PlaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211EA6F71B9A674E00867F26 /* PlaceTests.m */; };
 		2121E5C31B98431C00ABDD1F /* TouristHelperCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2121E5C21B98431C00ABDD1F /* TouristHelperCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2121E5C91B98431D00ABDD1F /* TouristHelperCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2121E5BD1B98431C00ABDD1F /* TouristHelperCore.framework */; };
-		2121E5D01B98431D00ABDD1F /* TouristHelperCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121E5CF1B98431D00ABDD1F /* TouristHelperCoreTests.m */; };
 		213F3B341B9925780036DF76 /* PlaceServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B331B9925780036DF76 /* PlaceServiceTests.m */; };
 		213F3B3B1B9926730036DF76 /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B3A1B9926730036DF76 /* TestConstants.m */; };
 		213F3B3F1B9936DE0036DF76 /* Place.h in Headers */ = {isa = PBXBuildFile; fileRef = 213F3B3D1B9936DE0036DF76 /* Place.h */; };
@@ -18,7 +18,7 @@
 		213F3B4C1B9949180036DF76 /* PlaceService.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B461B9949180036DF76 /* PlaceService.m */; };
 		213F3B4F1B9949180036DF76 /* LogService.h in Headers */ = {isa = PBXBuildFile; fileRef = 213F3B491B9949180036DF76 /* LogService.h */; };
 		213F3B501B9949180036DF76 /* LogService.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B4A1B9949180036DF76 /* LogService.m */; };
-		213F3B521B9953F60036DF76 /* LogServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B511B9953F60036DF76 /* LogServiceTest.m */; };
+		213F3B521B9953F60036DF76 /* LogServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B511B9953F60036DF76 /* LogServiceTests.m */; };
 		213FAC6E1B988C010074A016 /* GmsAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 213FAC6C1B988C010074A016 /* GmsAPIClient.h */; };
 		213FAC6F1B988C010074A016 /* GmsAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 213FAC6D1B988C010074A016 /* GmsAPIClient.m */; };
 		401ECFF824ED5CFA6C96397A /* libPods-TouristHelperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137F151670D2D1AD9FCC468F /* libPods-TouristHelperCore.a */; };
@@ -37,12 +37,12 @@
 /* Begin PBXFileReference section */
 		137F151670D2D1AD9FCC468F /* libPods-TouristHelperCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TouristHelperCore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B895876353DE200391CDC7 /* Pods-TouristHelperCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelperCore.release.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelperCore/Pods-TouristHelperCore.release.xcconfig"; sourceTree = "<group>"; };
+		211EA6F71B9A674E00867F26 /* PlaceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTests.m; sourceTree = "<group>"; };
 		2121E5BD1B98431C00ABDD1F /* TouristHelperCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TouristHelperCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2121E5C11B98431C00ABDD1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2121E5C21B98431C00ABDD1F /* TouristHelperCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouristHelperCore.h; sourceTree = "<group>"; };
 		2121E5C81B98431D00ABDD1F /* TouristHelperCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouristHelperCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2121E5CE1B98431D00ABDD1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2121E5CF1B98431D00ABDD1F /* TouristHelperCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouristHelperCoreTests.m; sourceTree = "<group>"; };
 		213F3B331B9925780036DF76 /* PlaceServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceServiceTests.m; sourceTree = "<group>"; };
 		213F3B391B9926730036DF76 /* TestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConstants.h; sourceTree = "<group>"; };
 		213F3B3A1B9926730036DF76 /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		213F3B461B9949180036DF76 /* PlaceService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceService.m; path = Services/PlaceService.m; sourceTree = "<group>"; };
 		213F3B491B9949180036DF76 /* LogService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogService.h; path = Services/LogService.h; sourceTree = "<group>"; };
 		213F3B4A1B9949180036DF76 /* LogService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogService.m; path = Services/LogService.m; sourceTree = "<group>"; };
-		213F3B511B9953F60036DF76 /* LogServiceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogServiceTest.m; sourceTree = "<group>"; };
+		213F3B511B9953F60036DF76 /* LogServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogServiceTests.m; sourceTree = "<group>"; };
 		213FAC681B98890C0074A016 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		213FAC6C1B988C010074A016 /* GmsAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GmsAPIClient.h; path = Networking/GmsAPIClient.h; sourceTree = "<group>"; };
 		213FAC6D1B988C010074A016 /* GmsAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GmsAPIClient.m; path = Networking/GmsAPIClient.m; sourceTree = "<group>"; };
@@ -79,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		211EA6F91B9A767400867F26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				211EA6F71B9A674E00867F26 /* PlaceTests.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		2121E5B31B98431C00ABDD1F = {
 			isa = PBXGroup;
 			children = (
@@ -124,8 +132,8 @@
 			children = (
 				213F3B391B9926730036DF76 /* TestConstants.h */,
 				213F3B3A1B9926730036DF76 /* TestConstants.m */,
+				211EA6F91B9A767400867F26 /* Models */,
 				213F3B351B9925800036DF76 /* Service */,
-				2121E5CF1B98431D00ABDD1F /* TouristHelperCoreTests.m */,
 				2121E5CD1B98431D00ABDD1F /* Supporting Files */,
 			);
 			path = TouristHelperCoreTests;
@@ -143,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				213F3B331B9925780036DF76 /* PlaceServiceTests.m */,
-				213F3B511B9953F60036DF76 /* LogServiceTest.m */,
+				213F3B511B9953F60036DF76 /* LogServiceTests.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -352,10 +360,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2121E5D01B98431D00ABDD1F /* TouristHelperCoreTests.m in Sources */,
 				213F3B341B9925780036DF76 /* PlaceServiceTests.m in Sources */,
-				213F3B521B9953F60036DF76 /* LogServiceTest.m in Sources */,
+				213F3B521B9953F60036DF76 /* LogServiceTests.m in Sources */,
 				213F3B3B1B9926730036DF76 /* TestConstants.m in Sources */,
+				211EA6F81B9A674E00867F26 /* PlaceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
