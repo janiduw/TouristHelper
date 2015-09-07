@@ -28,12 +28,22 @@
  *
  *  @param coordinate coordinate of the location
  *  @param radius     radius required
+ *  @param types      types required (Should be piped)
  *  @param block      async block with places
  *
  *  @return NSURLSessionDataTask
  */
 - (NSURLSessionDataTask *)getNearbyPlacesWithCoordinate:(CLLocationCoordinate2D)coordinate
                                                  radius:(NSUInteger)radius
+                                         supportedTypes:(NSString *)supportedTypes
                                                   block:(void (^)(NSArray *places, NSError *error))block;
+/**
+ *  Retrieves supported search types
+ *
+ *  @return NSMutableDictionary of supported types
+ */
+- (NSDictionary *)getSupportedTypes;
+
+- (BOOL)modifySupportedTypes:(NSMutableDictionary *)types;
 
 @end

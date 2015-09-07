@@ -21,6 +21,7 @@
 		213F3B521B9953F60036DF76 /* LogServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 213F3B511B9953F60036DF76 /* LogServiceTests.m */; };
 		213FAC6E1B988C010074A016 /* GmsAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 213FAC6C1B988C010074A016 /* GmsAPIClient.h */; };
 		213FAC6F1B988C010074A016 /* GmsAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 213FAC6D1B988C010074A016 /* GmsAPIClient.m */; };
+		21E6DE5F1B9C07550060BB1A /* GmsInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21E6DE5E1B9C07550060BB1A /* GmsInfo.plist */; };
 		401ECFF824ED5CFA6C96397A /* libPods-TouristHelperCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 137F151670D2D1AD9FCC468F /* libPods-TouristHelperCore.a */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		213FAC681B98890C0074A016 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		213FAC6C1B988C010074A016 /* GmsAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GmsAPIClient.h; path = Networking/GmsAPIClient.h; sourceTree = "<group>"; };
 		213FAC6D1B988C010074A016 /* GmsAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GmsAPIClient.m; path = Networking/GmsAPIClient.m; sourceTree = "<group>"; };
+		21E6DE5E1B9C07550060BB1A /* GmsInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GmsInfo.plist; sourceTree = "<group>"; };
 		D632011488A66F0E40B0BFBC /* Pods-TouristHelperCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelperCore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelperCore/Pods-TouristHelperCore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 		2121E5C01B98431C00ABDD1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				21E6DE5E1B9C07550060BB1A /* GmsInfo.plist */,
 				2121E5C11B98431C00ABDD1F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -299,6 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21E6DE5F1B9C07550060BB1A /* GmsInfo.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

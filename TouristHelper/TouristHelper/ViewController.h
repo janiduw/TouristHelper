@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsTableViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<SettingsTableViewDelegate>
 
 
 @end

@@ -48,6 +48,6 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
-  TouristHelperCore: 5e784efdb83c7f4b81aa08d3636433a63a6a9f91
+  TouristHelperCore: 4d38ca6e66f95ca87fe1b7c2f56bd346c13f8d2f
 
 COCOAPODS: 0.38.2

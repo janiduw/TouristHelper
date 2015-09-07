@@ -15,6 +15,7 @@
 		2109729E1B9838BB003BBF45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2109729C1B9838BB003BBF45 /* LaunchScreen.xib */; };
 		210972AA1B9838BB003BBF45 /* TouristHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 210972A91B9838BB003BBF45 /* TouristHelperTests.m */; };
 		216695A21B9B1B8200EE84E2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 216695A11B9B1B8200EE84E2 /* Constants.m */; };
+		21E6DE621B9C222A0060BB1A /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E6DE611B9C222A0060BB1A /* SettingsTableViewController.m */; };
 		F0EC81CDA34DCF9AB62D9CCC /* libPods-TouristHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6171758BEC583F7EB130FBC /* libPods-TouristHelper.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,8 @@
 		2121E5A61B98421400ABDD1F /* TouristHelperCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouristHelperCoreTests.m; sourceTree = "<group>"; };
 		216695A01B9B1B8200EE84E2 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		216695A11B9B1B8200EE84E2 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		21E6DE601B9C222A0060BB1A /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		21E6DE611B9C222A0060BB1A /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		A1F0DA41CDA508B05A87328A /* Pods-TouristHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		E8D1408F47FF4550801082FB /* Pods-TouristHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TouristHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-TouristHelper/Pods-TouristHelper.release.xcconfig"; sourceTree = "<group>"; };
 		F6171758BEC583F7EB130FBC /* libPods-TouristHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TouristHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +119,8 @@
 				210972921B9838BB003BBF45 /* AppDelegate.m */,
 				210972941B9838BB003BBF45 /* ViewController.h */,
 				210972951B9838BB003BBF45 /* ViewController.m */,
+				21E6DE601B9C222A0060BB1A /* SettingsTableViewController.h */,
+				21E6DE611B9C222A0060BB1A /* SettingsTableViewController.m */,
 				210972971B9838BB003BBF45 /* Main.storyboard */,
 				2109729A1B9838BB003BBF45 /* Images.xcassets */,
 				2109729C1B9838BB003BBF45 /* LaunchScreen.xib */,
@@ -339,6 +344,7 @@
 			files = (
 				210972961B9838BB003BBF45 /* ViewController.m in Sources */,
 				210972931B9838BB003BBF45 /* AppDelegate.m in Sources */,
+				21E6DE621B9C222A0060BB1A /* SettingsTableViewController.m in Sources */,
 				210972901B9838BB003BBF45 /* main.m in Sources */,
 				216695A21B9B1B8200EE84E2 /* Constants.m in Sources */,
 			);

@@ -19,7 +19,10 @@
 @property (weak, nonatomic) IBOutlet UIView *mapView;
 @property (strong, nonatomic) GMSMapView *gmsMapView;
 @property (assign, nonatomic) BOOL firstLocationUpdate;
-@property (strong, nonatomic)PlaceService *placeService;
+@property (strong, nonatomic) PlaceService *placeService;
+@property (strong, nonatomic) NSMutableDictionary *supportedTypes;
+@property (strong, nonatomic) CLLocation *currentLocation;
+
 @end
 
 @implementation ViewController
@@ -47,6 +50,14 @@
     
     self.placeService = [[PlaceService alloc] init];
     self.placeService.apiKey = GMS_API_KEY;
+    
+    self.supportedTypes = [[[PlaceService sharedInstance] getSupportedTypes] mutableCopy];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    SettingsTableViewController *settingsViewController = (SettingsTableViewController *) segue.destinationViewController;
+    settingsViewController.supportedSettings = self.supportedTypes;
+    settingsViewController.delegate = self;
 }
 
 #pragma mark - KVO updates
@@ -56,30 +67,48 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     
-    CLLocation *currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    self.currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
     
     if (!self.firstLocationUpdate) {
-        // If the first location update has not yet been recieved, then jump to that
-        // location.
-        GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate
-                                                                     zoom:12];
-        [self.gmsMapView animateToCameraPosition:position];
+        
         self.firstLocationUpdate = YES;
         
-        [self retrievePlacesOfInterest:currentLocation.coordinate];
+        // If the first location update has not yet been recieved, then jump to that location.
+        GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:self.currentLocation.coordinate
+                                                                     zoom:12];
+        [self.gmsMapView animateToCameraPosition:position];
+        
+        // Retrieve places of interest
+        [self retrievePlacesOfInterest:self.currentLocation.coordinate];
     }
 }
 
 - (void)retrievePlacesOfInterest:(CLLocationCoordinate2D)coordinate {
-    [self.placeService getNearbyPlacesWithCoordinate:coordinate radius:500 block:^(NSArray *places, NSError *error) {
-        @autoreleasepool {
-            for (Place *place in places) {
-                GMSMarker *marker = [GMSMarker markerWithPosition:place.location];
-                marker.title = place.name;
-                marker.map = self.gmsMapView;
-            }
-        }
-    }];
+    NSString *supportedTypes = [[self.supportedTypes allKeys] componentsJoinedByString:@"|"];
+    
+    [self.placeService getNearbyPlacesWithCoordinate:coordinate
+                                              radius:1000
+                                      supportedTypes:supportedTypes
+                                               block:^(NSArray *places, NSError *error) {
+                                                   
+                                                   [self.gmsMapView clear];
+                                                   
+                                                   @autoreleasepool {
+                                                       for (Place *place in places) {
+                                                           GMSMarker *marker = [GMSMarker markerWithPosition:place.location];
+                                                           marker.title = place.name;
+                                                           marker.map = self.gmsMapView;
+                                                       }
+                                                   }
+                                               }];
+}
+
+#pragma mark - SettingsTableViewDelegate
+
+- (void)didUpdateSettings:(NSMutableDictionary *)updatedSettings {
+    [self.placeService modifySupportedTypes:updatedSettings];
+    // Retrieve places of interest
+    [self retrievePlacesOfInterest:self.currentLocation.coordinate];
 }
 
 - (void)dealloc {

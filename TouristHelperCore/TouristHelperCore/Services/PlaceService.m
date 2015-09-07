@@ -13,7 +13,8 @@
 
 @implementation PlaceService
 
-NSString *NEARBY_SEARCH = @"place/nearbysearch/json?location=%f,%f&radius=%d&key=%@";
+NSString *NEARBY_SEARCH = @"place/nearbysearch/json";
+NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
 
 + (instancetype)sharedInstance {
     static PlaceService *_sharedInstance = nil;
@@ -28,15 +29,21 @@ NSString *NEARBY_SEARCH = @"place/nearbysearch/json?location=%f,%f&radius=%d&key
 
 - (NSURLSessionDataTask *)getNearbyPlacesWithCoordinate:(CLLocationCoordinate2D)coordinate
                                                  radius:(NSUInteger)radius
+                                         supportedTypes:(NSString *)supportedTypes
                                                   block:(void (^)(NSArray *places, NSError *error))block{
+    
+    NSDictionary *params = @{@"location" : [NSString
+                                            stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude],
+                             @"radius"   : [NSNumber numberWithLong:radius],
+                             @"types"    : supportedTypes,
+                             @"key"      : self.apiKey};
     
     // Format the GET request to include required parameters
     NSString *getRequest = [NSString stringWithFormat:NEARBY_SEARCH,
-                            coordinate.latitude, coordinate.longitude, radius, self.apiKey];
+                            coordinate.latitude, coordinate.longitude, radius, supportedTypes, self.apiKey];
     
-    return [[GmsAPIClient sharedClient] GET:getRequest parameters:nil
+    return [[GmsAPIClient sharedClient] GET:getRequest parameters:params
                                     success:^(NSURLSessionDataTask * __unused task, id JSON) {
-                                        
                                         
                                         NSArray *placesFromResponse = [JSON valueForKeyPath:@"results"];
                                         [[LogService sharedInstance] logInfoWithFormat:@"Retrieved Places with count %d", placesFromResponse.count];
@@ -62,6 +69,63 @@ NSString *NEARBY_SEARCH = @"place/nearbysearch/json?location=%f,%f&radius=%d&key
                                             block([NSArray array], nil);
                                         }
                                     }];
+}
+
+- (NSDictionary *)getSupportedTypes {
+    return [[self readGmsInfoPlist] objectForKey:@"Types"];
+}
+
+-(BOOL)modifySupportedTypes:(NSMutableDictionary *)types {
+    
+    NSMutableDictionary *plist = [[self readGmsInfoPlist] mutableCopy];
+    [plist setObject:types forKey:@"Types"];
+    
+    return [plist writeToFile:[self gmsInfoPlistDocPath] atomically:YES];
+}
+
+/**
+ *  Copies the GmsInfoPlist to the documents directory and reads its content
+ *
+ *  @return Contents of the plist
+ */
+-(NSDictionary *)readGmsInfoPlist {
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    
+    NSString *docPath = [self gmsInfoPlistDocPath];
+    
+    // Copy the plist to the documents directory if does not exist
+    if (![fileManager fileExistsAtPath:docPath]) {
+        [fileManager copyItemAtPath:[self gmsInfoPlistBundlePath] toPath:docPath error:&error];
+    }
+    
+    return [NSDictionary dictionaryWithContentsOfFile:docPath];
+}
+
+/**
+ *  GmsInfoPlist Bundle Path
+ *
+ *  @return Path of the GmsInfoPlist
+ */
+-(NSString *)gmsInfoPlistBundlePath {
+    // Plist exist at the bundle of the framework
+    NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+    return [bundle pathForResource:GMSINFO_PLIST_NAME ofType:@"plist"];
+}
+
+/**
+ *  GmsInfoPlist Bundle Path
+ *
+ *  @return Path of the GmsInfoPlist
+ */
+-(NSString *)gmsInfoPlistDocPath {
+    // Plist exist at the bundle of the framework
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    // Path where the plist should exist on the documents directory
+    return [[paths objectAtIndex:0] stringByAppendingPathComponent:[GMSINFO_PLIST_NAME
+                                                                    stringByAppendingString:@".plist"]];
 }
 
 @end

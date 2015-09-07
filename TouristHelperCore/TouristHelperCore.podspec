@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author       = { "Janidu Wanigasuriya" => "janiduw@gmail.com" }
   s.source_files  = 'TouristHelperCore', 'TouristHelperCore/**/*.{h,m}'
   s.public_header_files = 'TouristHelperCore/**/*.h'
-  s.resources    = "TouristHelperCore/*.png"
+  s.resources    = "TouristHelperCore/*.png", "TouristHelperCore/GmsInfo.plist"
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
 

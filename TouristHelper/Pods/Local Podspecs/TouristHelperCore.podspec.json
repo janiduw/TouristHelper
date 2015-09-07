@@ -12,7 +12,10 @@
     "TouristHelperCore/**/*.{h,m}"
   ],
   "public_header_files": "TouristHelperCore/**/*.h",
-  "resources": "TouristHelperCore/*.png",
+  "resources": [
+    "TouristHelperCore/*.png",
+    "TouristHelperCore/GmsInfo.plist"
+  ],
   "requires_arc": true,
   "platforms": {
     "ios": "8.0"

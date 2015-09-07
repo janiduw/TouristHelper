@@ -17,7 +17,7 @@
 @interface PlaceServiceTests ()
 @property(nonatomic, strong)PlaceService *placeService;
 @end
- 
+
 @implementation PlaceServiceTests
 
 - (void)setUp {
@@ -37,12 +37,34 @@
     self.placeService.apiKey = GMS_TEST_API_KEY;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(-33.8670, 151.1957);
     
+    NSString *supportedTypes = [[[self.placeService getSupportedTypes] allKeys] componentsJoinedByString:@"|"];
+    
     hxRunInMainLoop(^(BOOL *done) {
-        [self.placeService getNearbyPlacesWithCoordinate:coordinate radius:500 block:^(NSArray *places, NSError *error) {
-            XCTAssertTrue(places.count != 0);
-            *done = YES;
-        }];
+        [self.placeService getNearbyPlacesWithCoordinate:coordinate
+                                                  radius:500
+                                          supportedTypes:supportedTypes
+                                                   block:^(NSArray *places, NSError *error) {
+                                                       XCTAssertTrue(places.count != 0);
+                                                       *done = YES;
+                                                   }];
     });
+}
+
+- (void)testGetSupportedTypes {
+    NSDictionary *types = [self.placeService getSupportedTypes];
+    XCTAssertNotNil(types);
+    XCTAssertEqual([types allKeys].count, 7);
+}
+
+- (void)testAddSupportedTypes {
+    NSMutableDictionary *types = [[self.placeService getSupportedTypes] mutableCopy];
+    [types setObject:@YES forKey:@"Cafes"];
+    [self.placeService modifySupportedTypes:types];
+    
+    NSMutableDictionary *modifiedTypes = [[self.placeService getSupportedTypes] mutableCopy];
+    XCTAssertEqual([modifiedTypes allKeys].count, 8);
+    [modifiedTypes removeObjectForKey:@"Cafes"];
+    [self.placeService modifySupportedTypes:modifiedTypes];
 }
 
 - (void)tearDown {
