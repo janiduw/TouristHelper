@@ -11,7 +11,7 @@
 /**
  *  Base URL for GMS
  */
-static NSString * const GmsAPIClientURLString = @"https://maps.googleapis.com/maps/api/";
+NSString * const GmsAPIClientURLString = @"https://maps.googleapis.com/maps/api/";
 
 @implementation GmsAPIClient
 

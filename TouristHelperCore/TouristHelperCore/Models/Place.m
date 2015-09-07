@@ -17,9 +17,11 @@
     }
     
     self.name = [attributes valueForKeyPath:@"name"];
-    self.placeId = (NSUInteger) [[attributes valueForKeyPath:@"id"] integerValue];
+    self.placeId = [attributes valueForKeyPath:@"place_id"];
     self.iconUrl = [attributes valueForKeyPath:@"icon"];
     
+    NSArray *photos = [attributes valueForKeyPath:@"photos"];
+    self.photoRef = [[photos objectAtIndex:0] valueForKeyPath:@"photo_reference"];
     self.location = CLLocationCoordinate2DMake([[attributes valueForKeyPath:@"geometry.location.lat"] doubleValue],
                                                [[attributes valueForKeyPath:@"geometry.location.lng"] doubleValue]);
     return self;

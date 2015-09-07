@@ -37,16 +37,17 @@
 - (void)testInitWithAttributes {
     
     NSString *placeName = @"testPlace";
-    NSNumber *placeId = @12345;
+    NSString *placeId = @"12345";
     NSString *icon = @"http://a.png";
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:@[placeName, placeId, icon]
-                                                           forKeys:@[@"name", @"id", @"icon"]];
+                                                           forKeys:@[@"name", @"place_id", @"icon"]];
     Place *place = [[Place alloc] initWithAttributes:dictionary];
     
-    XCTAssertEqual(placeName, place.name);
+    XCTAssertTrue([placeName isEqualToString:place.name]);
     XCTAssertTrue([icon isEqualToString:place.iconUrl]);
-    XCTAssertEqual([placeId integerValue], place.placeId);
+    XCTAssertTrue([placeId isEqualToString:place.placeId]);
+
 }
 
 @end

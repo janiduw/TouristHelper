@@ -11,9 +11,10 @@
 #import "ViewController.h"
 
 #import "Constants.h"
-#import "UIImageView+AFNetworking.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import <PureLayout/PureLayout.h>
 #import <TouristHelperCore/TouristHelperCore.h>
+#import "CustomInfoView.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIView *mapView;
@@ -22,7 +23,7 @@
 @property (strong, nonatomic) PlaceService *placeService;
 @property (strong, nonatomic) NSMutableDictionary *supportedTypes;
 @property (strong, nonatomic) CLLocation *currentLocation;
-
+@property (strong, nonatomic)  CustomInfoView *customView;
 @end
 
 @implementation ViewController
@@ -35,6 +36,7 @@
                                                                  zoom:6];
     
     self.gmsMapView = [GMSMapView mapWithFrame:[[UIScreen mainScreen] bounds]  camera:camera];
+    self.gmsMapView.delegate = self;
     self.gmsMapView.settings.myLocationButton = YES;
     
     self.gmsMapView.myLocationEnabled = YES;
@@ -52,6 +54,58 @@
     self.placeService.apiKey = GMS_API_KEY;
     
     self.supportedTypes = [[[PlaceService sharedInstance] getSupportedTypes] mutableCopy];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    
+    self.customView =  [[[NSBundle mainBundle] loadNibNamed:@"CustomInfoView"
+                                                      owner:self
+                                                    options:nil] objectAtIndex:0];
+    
+    Place *place = (Place *) marker.userData;
+    
+    if (place.address) {
+        // If details are present set it to the view
+        self.customView.address.text = place.address;
+        self.customView.name.text = place.name;
+        self.customView.phoneNumber.text = place.phoneNumber;
+        self.customView.activityIndicator.hidden = YES;
+        
+    }else {
+        // If not retreve place details
+        [self.placeService retrievePlaceDetails:place block:^(Place *place, NSError *error) {
+            // Select the marker again for the view to be refreshed
+            [mapView setSelectedMarker:marker];
+        }];
+    }
+    
+    if(place.photo){
+        // If a photo is present display it
+        self.customView.bannerImage.image = place.photo;
+    }else {
+        // Retreive the image
+        NSURL *url = [NSURL URLWithString:[self.placeService retrievePlaceImageUrlWithPlace:place]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [self.customView.bannerImage setImageWithURLRequest:request placeholderImage:nil
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                        place.photo = image;
+                                                        // Select the marker again for the view to be refreshed
+                                                        [mapView setSelectedMarker:marker];
+                                                    }
+                                                    failure:NULL];
+    }
+    
+    return self.customView;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -84,11 +138,20 @@
 }
 
 - (void)retrievePlacesOfInterest:(CLLocationCoordinate2D)coordinate {
-    NSString *supportedTypes = [[self.supportedTypes allKeys] componentsJoinedByString:@"|"];
+    
+    NSMutableArray *supportedTypes = [NSMutableArray new];
+    @autoreleasepool {
+        for (NSString *typeKey in [self.supportedTypes allKeys]) {
+            if ([[self.supportedTypes valueForKey:typeKey] boolValue]) {
+                [supportedTypes addObject:typeKey];
+            }
+        }
+    }
+ 
     
     [self.placeService getNearbyPlacesWithCoordinate:coordinate
                                               radius:1000
-                                      supportedTypes:supportedTypes
+                                      supportedTypes:[supportedTypes componentsJoinedByString:@"|"]
                                                block:^(NSArray *places, NSError *error) {
                                                    
                                                    [self.gmsMapView clear];
@@ -96,8 +159,10 @@
                                                    @autoreleasepool {
                                                        for (Place *place in places) {
                                                            GMSMarker *marker = [GMSMarker markerWithPosition:place.location];
+                                                           marker.infoWindowAnchor = CGPointMake(0.44f, 0.45f);
                                                            marker.title = place.name;
                                                            marker.map = self.gmsMapView;
+                                                           marker.userData = place;
                                                        }
                                                    }
                                                }];

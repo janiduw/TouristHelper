@@ -7,6 +7,7 @@
 //
 
 #import "SettingsTableViewController.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface SettingsTableViewController ()
 
@@ -20,6 +21,7 @@
     [super viewDidLoad];
     // Keys should be the display value
     self.supportedTypes = [self.supportedSettings allKeys];
+    
 }
 
 #pragma mark - Table view data source
@@ -40,6 +42,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TypeCell" forIndexPath:indexPath];
     cell.textLabel.text = settingType;
+    [cell.imageView setImage:[UIImage imageNamed:@"art_gallery-71"]];
     
     [self toggleCheckMarkWithCell:cell activated:[[self.supportedSettings
                                                    objectForKey:settingType] boolValue]];

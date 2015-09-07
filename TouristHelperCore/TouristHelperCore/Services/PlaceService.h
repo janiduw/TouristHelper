@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class Place;
+
 /**
  *  Purpose of this service is to retrieve places of interest
  */
@@ -37,6 +39,20 @@
                                                  radius:(NSUInteger)radius
                                          supportedTypes:(NSString *)supportedTypes
                                                   block:(void (^)(NSArray *places, NSError *error))block;
+
+/**
+ *  Retreives detail information about the place using the place_id
+ *
+ *  @param place Place with a valid place_id
+ *  @param block Callback Block
+ *
+ *  @return NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)retrievePlaceDetails:(Place *)place
+                                         block:(void (^)(Place *place, NSError *error))block;
+
+- (NSString *)retrievePlaceImageUrlWithPlace:(Place *)place;
+
 /**
  *  Retrieves supported search types
  *

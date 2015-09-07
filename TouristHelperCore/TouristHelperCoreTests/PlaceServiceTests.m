@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "PlaceService.h"
 #import "TestConstants.h"
+#import "Place.h"
 
 @interface PlaceServiceTests : XCTestCase
 
@@ -23,6 +24,7 @@
 - (void)setUp {
     [super setUp];
     self.placeService = [PlaceService sharedInstance];
+    self.placeService.apiKey = GMS_TEST_API_KEY;
 }
 
 - (void)testInstantiation {
@@ -34,7 +36,6 @@
 }
 
 - (void)testGetNearbyPOIsWithCoordinate {
-    self.placeService.apiKey = GMS_TEST_API_KEY;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(-33.8670, 151.1957);
     
     NSString *supportedTypes = [[[self.placeService getSupportedTypes] allKeys] componentsJoinedByString:@"|"];
@@ -48,6 +49,28 @@
                                                        *done = YES;
                                                    }];
     });
+}
+
+- (void)testGetPlaceId {
+    
+    Place *place = [[Place alloc] init];
+    place.placeId = @"ChIJN1t_tDeuEmsRUsoyG83frY4";
+    
+    hxRunInMainLoop(^(BOOL *done) {
+        [self.placeService retrievePlaceDetails:place block:^(Place *place, NSError *error) {
+            XCTAssertNotNil(place.phoneNumber);
+            XCTAssertNotNil(place.address);
+            XCTAssertNotNil(place.aboutUrl);
+            *done = YES;
+        }];
+    });
+}
+
+- (void)testRetrievePlaceImageUrlWithPlace {
+    Place *place = [[Place alloc] init];
+    place.photoRef = @"CmRdAAAAc22vE5aLuIhLUonMiraUViQLa3mDR_ZwrjcLhmjsg-XmR0ti-kEEe67AFxXUQEaZLw30ECAHJOa5dgKARXsbKtlnYXkK_AanvbD-hZVC0gQpLPX-w3230FO7XHeFI6WcEhCFPfYCP9iEwaS4641KysYpGhQFz4-dNwo3COELw0ZDBJ2ue8XHEw";
+    NSString *photoUrl = [self.placeService retrievePlaceImageUrlWithPlace:place];
+    XCTAssertNotNil(photoUrl);
 }
 
 - (void)testGetSupportedTypes {

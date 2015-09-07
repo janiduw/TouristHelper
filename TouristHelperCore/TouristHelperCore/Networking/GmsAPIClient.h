@@ -21,5 +21,6 @@
  */
 + (instancetype)sharedClient;
 
+extern NSString * const GmsAPIClientURLString;
 
 @end

@@ -15,8 +15,13 @@
 @interface Place : NSObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) NSUInteger placeId;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) NSString *placeId;
+@property (nonatomic, strong) NSString *photoRef;
+@property (nonatomic, strong) UIImage *photo;
 @property (nonatomic, strong) NSString *iconUrl;
+@property (nonatomic, strong) NSString *aboutUrl;
 @property (nonatomic, assign) CLLocationCoordinate2D location;
 
 /**

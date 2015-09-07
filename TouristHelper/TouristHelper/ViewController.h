@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SettingsTableViewController.h"
 
-@interface ViewController : UIViewController<SettingsTableViewDelegate>
+@interface ViewController : UIViewController<SettingsTableViewDelegate, GMSMapViewDelegate>
 
 
 @end

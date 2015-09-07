@@ -14,6 +14,8 @@
 @implementation PlaceService
 
 NSString *NEARBY_SEARCH = @"place/nearbysearch/json";
+NSString *PLACE_DETAIL = @"place/details/json";
+NSString *PLACE_PHOTO = @"place/photo?maxwidth=%@&photoreference=%@&key=%@";
 NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
 
 + (instancetype)sharedInstance {
@@ -38,11 +40,7 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
                              @"types"    : supportedTypes,
                              @"key"      : self.apiKey};
     
-    // Format the GET request to include required parameters
-    NSString *getRequest = [NSString stringWithFormat:NEARBY_SEARCH,
-                            coordinate.latitude, coordinate.longitude, radius, supportedTypes, self.apiKey];
-    
-    return [[GmsAPIClient sharedClient] GET:getRequest parameters:params
+    return [[GmsAPIClient sharedClient] GET:NEARBY_SEARCH parameters:params
                                     success:^(NSURLSessionDataTask * __unused task, id JSON) {
                                         
                                         NSArray *placesFromResponse = [JSON valueForKeyPath:@"results"];
@@ -66,9 +64,36 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
                                         
                                     } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
                                         if (block) {
-                                            block([NSArray array], nil);
+                                            block([NSArray array], error);
                                         }
                                     }];
+}
+
+- (NSURLSessionDataTask *)retrievePlaceDetails:(Place *)place
+                                         block:(void (^)(Place *place, NSError *error))block{
+    
+    NSDictionary *params = @{@"placeid" : place.placeId,
+                             @"key"     : self.apiKey};
+    
+    return [[GmsAPIClient sharedClient] GET:PLACE_DETAIL parameters:params
+                                    success:^(NSURLSessionDataTask * __unused task, id JSON) {
+                                        
+                                        NSArray *placesFromResponse = [JSON valueForKeyPath:@"result"];
+                                        [[LogService sharedInstance] logInfoWithFormat:@"Retrieved details"];
+                                        
+                                        place.address = [placesFromResponse valueForKeyPath:@"formatted_address"];
+                                        place.aboutUrl = [placesFromResponse valueForKeyPath:@"url"];
+                                        place.phoneNumber = [placesFromResponse valueForKeyPath:@"international_phone_number"];
+                                        
+                                        if (block) {
+                                            block(place, nil);
+                                        }
+                                        
+                                    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+                                        if (block) {
+                                            block(nil, error);
+                                        }
+                                    }];;
 }
 
 - (NSDictionary *)getSupportedTypes {
@@ -81,6 +106,11 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
     [plist setObject:types forKey:@"Types"];
     
     return [plist writeToFile:[self gmsInfoPlistDocPath] atomically:YES];
+}
+
+- (NSString *)retrievePlaceImageUrlWithPlace:(Place *)place {
+    return [GmsAPIClientURLString stringByAppendingString:[NSString
+                                                           stringWithFormat:PLACE_PHOTO, @"200", place.photoRef, self.apiKey]];
 }
 
 /**
