@@ -17,6 +17,7 @@
 
 @interface PlaceServiceTests ()
 @property(nonatomic, strong)PlaceService *placeService;
+@property(nonatomic, strong)CLLocation *currentLocation;
 @end
 
 @implementation PlaceServiceTests
@@ -25,6 +26,7 @@
     [super setUp];
     self.placeService = [PlaceService sharedInstance];
     self.placeService.apiKey = GMS_TEST_API_KEY;
+    self.currentLocation = [[CLLocation alloc] initWithLatitude:-33.8670 longitude:151.1957];
 }
 
 - (void)testInstantiation {
@@ -36,12 +38,12 @@
 }
 
 - (void)testGetNearbyPOIsWithCoordinate {
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(-33.8670, 151.1957);
     
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:-33.8670 longitude:151.1957];
     NSString *supportedTypes = [[[self.placeService getSupportedTypes] allKeys] componentsJoinedByString:@"|"];
     
     hxRunInMainLoop(^(BOOL *done) {
-        [self.placeService getNearbyPlacesWithCoordinate:coordinate
+        [self.placeService getNearbyPlacesWithCoordinate:currentLocation
                                                   radius:500
                                           supportedTypes:supportedTypes
                                                    block:^(NSArray *places, NSError *error) {
@@ -90,9 +92,27 @@
     [self.placeService modifySupportedTypes:modifiedTypes];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+-(void)testOverlayCoordinates {
+    
+    NSString *supportedTypes = [[[self.placeService getSupportedTypes] allKeys] componentsJoinedByString:@"|"];
+    
+    hxRunInMainLoop(^(BOOL *done) {
+        [self.placeService getNearbyPlacesWithCoordinate:self.currentLocation
+                                                  radius:500
+                                          supportedTypes:supportedTypes
+                                                   block:^(NSArray *places, NSError *error) {
+                                                       NSArray *sortedArray = [self.placeService sortPlacesByDistance:places
+                                                                                                       currentLocation:self.currentLocation];
+                                                       
+                                                       Place *shortestPlace = [sortedArray objectAtIndex:0];
+                                                       Place *nextPlace = [places objectAtIndex:0];
+                                                       
+                                                       XCTAssertTrue([self.currentLocation distanceFromLocation:shortestPlace.location] <=
+                                                                     [self.currentLocation distanceFromLocation:nextPlace.location]);
+                                                       
+                                                       *done = YES;
+                                                   }];
+    });
 }
 
 static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {

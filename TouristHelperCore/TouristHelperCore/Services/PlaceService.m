@@ -13,10 +13,10 @@
 
 @implementation PlaceService
 
-NSString *NEARBY_SEARCH = @"place/nearbysearch/json";
-NSString *PLACE_DETAIL = @"place/details/json";
-NSString *PLACE_PHOTO = @"place/photo?maxwidth=%@&photoreference=%@&key=%@";
-NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
+static NSString * const NEARBY_SEARCH = @"place/nearbysearch/json";
+static NSString * const PLACE_DETAIL = @"place/details/json";
+static NSString * const PLACE_PHOTO = @"place/photo?maxwidth=%@&photoreference=%@&key=%@";
+static NSString * const GMSINFO_PLIST_NAME = @"GmsInfo";
 
 + (instancetype)sharedInstance {
     static PlaceService *_sharedInstance = nil;
@@ -29,13 +29,14 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
     return _sharedInstance;
 }
 
-- (NSURLSessionDataTask *)getNearbyPlacesWithCoordinate:(CLLocationCoordinate2D)coordinate
+- (NSURLSessionDataTask *)getNearbyPlacesWithCoordinate:(CLLocation *)location
                                                  radius:(NSUInteger)radius
                                          supportedTypes:(NSString *)supportedTypes
                                                   block:(void (^)(NSArray *places, NSError *error))block{
     
+    // Prepare GET parameters
     NSDictionary *params = @{@"location" : [NSString
-                                            stringWithFormat:@"%f,%f", coordinate.latitude, coordinate.longitude],
+                                            stringWithFormat:@"%f,%f", location.coordinate.latitude, location.coordinate.longitude],
                              @"radius"   : [NSNumber numberWithLong:radius],
                              @"types"    : supportedTypes,
                              @"key"      : self.apiKey};
@@ -59,7 +60,9 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
                                         
                                         if (block) {
                                             // Invoke Async callback
-                                            block([NSArray arrayWithArray:mutablePlaces], nil);
+                                            NSArray *sortedArray = [self sortPlacesByDistance:mutablePlaces
+                                                                              currentLocation:location];
+                                            block(sortedArray, nil);
                                         }
                                         
                                     } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
@@ -67,6 +70,19 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
                                             block([NSArray array], error);
                                         }
                                     }];
+}
+
+- (NSArray *)sortPlacesByDistance:(NSArray *)places
+                  currentLocation:(CLLocation *)currentLocation {
+    // Sort places according to the distance
+    NSArray *sortedArray;
+    sortedArray = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        CLLocation *first = [(Place*)a location];
+        CLLocation *second = [(Place*)b location];
+        return [currentLocation distanceFromLocation:first] > [currentLocation
+                                                               distanceFromLocation:second];
+    }];
+    return sortedArray;
 }
 
 - (NSURLSessionDataTask *)retrievePlaceDetails:(Place *)place
@@ -101,10 +117,10 @@ NSString *GMSINFO_PLIST_NAME = @"GmsInfo";
 }
 
 -(BOOL)modifySupportedTypes:(NSMutableDictionary *)types {
-    
+    // Retreive the original plist dictionary and modify that
     NSMutableDictionary *plist = [[self readGmsInfoPlist] mutableCopy];
     [plist setObject:types forKey:@"Types"];
-    
+    // Write back to disk
     return [plist writeToFile:[self gmsInfoPlistDocPath] atomically:YES];
 }
 

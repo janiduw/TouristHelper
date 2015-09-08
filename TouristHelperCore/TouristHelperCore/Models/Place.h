@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
+
+@class UIImage;
+@class CLLocation;
 
 /**
  *  A model object represeting a place of interest
@@ -22,7 +24,7 @@
 @property (nonatomic, strong) UIImage *photo;
 @property (nonatomic, strong) NSString *iconUrl;
 @property (nonatomic, strong) NSString *aboutUrl;
-@property (nonatomic, assign) CLLocationCoordinate2D location;
+@property (nonatomic, strong) CLLocation *location;
 
 /**
  *  Initalizes a place with given attributes

@@ -26,16 +26,16 @@
 + (instancetype)sharedInstance;
 
 /**
- *  Retrieves Places of interests
+ *  Retrieves Places of interests sorted by the closest location
  *
- *  @param coordinate coordinate of the location
+ *  @param coordinate coordinate of the current location
  *  @param radius     radius required
  *  @param types      types required (Should be piped)
  *  @param block      async block with places
  *
  *  @return NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)getNearbyPlacesWithCoordinate:(CLLocationCoordinate2D)coordinate
+- (NSURLSessionDataTask *)getNearbyPlacesWithCoordinate:(CLLocation *)location
                                                  radius:(NSUInteger)radius
                                          supportedTypes:(NSString *)supportedTypes
                                                   block:(void (^)(NSArray *places, NSError *error))block;
@@ -51,7 +51,25 @@
 - (NSURLSessionDataTask *)retrievePlaceDetails:(Place *)place
                                          block:(void (^)(Place *place, NSError *error))block;
 
+/**
+ *  Retrieves a place image URL
+ *
+ *  @param place Description of the place
+ *
+ *  @return Place with the place image Url
+ */
 - (NSString *)retrievePlaceImageUrlWithPlace:(Place *)place;
+
+/**
+ *  Sorts places according to the distance
+ *
+ *  @param places
+ *  @param currentLocation
+ *
+ *  @return
+ */
+- (NSArray *)sortPlacesByDistance:(NSArray *)places
+                  currentLocation:(CLLocation *)currentLocation;
 
 /**
  *  Retrieves supported search types
@@ -60,6 +78,13 @@
  */
 - (NSDictionary *)getSupportedTypes;
 
+/**
+ *  Modifies supported types
+ *
+ *  @param types
+ *
+ *  @return BOOL true if succesful with the update
+ */
 - (BOOL)modifySupportedTypes:(NSMutableDictionary *)types;
 
 @end
