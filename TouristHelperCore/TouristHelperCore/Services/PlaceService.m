@@ -10,6 +10,7 @@
 #import "GmsAPIClient.h"
 #import "Place.h"
 #import "LogService.h"
+#import <math.h>
 
 @implementation PlaceService
 
@@ -83,6 +84,29 @@ static NSString * const GMSINFO_PLIST_NAME = @"GmsInfo";
                                                                distanceFromLocation:second];
     }];
     return sortedArray;
+}
+
+- (Place *)getNextNearbyPlace:(NSArray *)places
+             currentLocation:(CLLocation *)currentLocation {
+    
+    Place *closestLocation;
+    CLLocationDistance smallestDistance = CGFLOAT_MAX;
+    
+    for (Place *place in places) {
+        @autoreleasepool {
+            if (place.visited) {
+                continue;
+            }
+            
+            CLLocationDistance distance = [currentLocation distanceFromLocation:place.location];
+            if (distance < smallestDistance) {
+                distance = smallestDistance;
+                closestLocation = place;
+            }
+        }
+    }
+    
+    return closestLocation;
 }
 
 - (NSURLSessionDataTask *)retrievePlaceDetails:(Place *)place

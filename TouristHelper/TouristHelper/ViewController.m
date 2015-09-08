@@ -15,6 +15,7 @@
 #import <PureLayout/PureLayout.h>
 #import <TouristHelperCore/TouristHelperCore.h>
 #import "CustomInfoView.h"
+#import <TSMessages/TSMessage.h>
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIView *mapView;
@@ -23,7 +24,8 @@
 @property (strong, nonatomic) PlaceService *placeService;
 @property (strong, nonatomic) NSMutableDictionary *supportedTypes;
 @property (strong, nonatomic) CLLocation *currentLocation;
-@property (strong, nonatomic)  CustomInfoView *customView;
+@property (strong, nonatomic) CustomInfoView *customView;
+@property (strong, nonatomic) NSArray *places;
 @end
 
 @implementation ViewController
@@ -33,7 +35,7 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
                                                             longitude:151.20
-                                                                 zoom:6];
+                                                                 zoom:13];
     
     self.gmsMapView = [GMSMapView mapWithFrame:[[UIScreen mainScreen] bounds]  camera:camera];
     self.gmsMapView.delegate = self;
@@ -96,7 +98,7 @@
         // Retreive the image
         NSURL *url = [NSURL URLWithString:[self.placeService retrievePlaceImageUrlWithPlace:place]];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        [self.customView.bannerImage setImageWithURLRequest:request placeholderImage:nil
+        [self.customView.bannerImage setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder_location"]
                                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                         place.photo = image;
                                                         // Select the marker again for the view to be refreshed
@@ -121,7 +123,13 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     
-    self.currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+    CLLocationDistance distanceThreshold = 2.0;
+    CLLocation *locationUpdate = [change objectForKey:NSKeyValueChangeNewKey];
+    
+    if (!self.currentLocation || [locationUpdate distanceFromLocation:self.currentLocation] > distanceThreshold){
+        self.currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
+        self.firstLocationUpdate = NO;
+    }
     
     if (!self.firstLocationUpdate) {
         
@@ -129,15 +137,17 @@
         
         // If the first location update has not yet been recieved, then jump to that location.
         GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:self.currentLocation.coordinate
-                                                                     zoom:12];
+                                                                     zoom:13];
         [self.gmsMapView animateToCameraPosition:position];
         
         // Retrieve places of interest
-        [self retrievePlacesOfInterest:self.currentLocation.coordinate];
+        [self retrievePlacesOfInterest:self.currentLocation];
     }
 }
 
-- (void)retrievePlacesOfInterest:(CLLocationCoordinate2D)coordinate {
+- (void)retrievePlacesOfInterest:(CLLocation *)currentLocation {
+    
+    [self showLocationFetchNotification];
     
     NSMutableArray *supportedTypes = [NSMutableArray new];
     @autoreleasepool {
@@ -147,33 +157,74 @@
             }
         }
     }
- 
     
-    [self.placeService getNearbyPlacesWithCoordinate:coordinate
+    [self.placeService getNearbyPlacesWithCoordinate:currentLocation
                                               radius:1000
                                       supportedTypes:[supportedTypes componentsJoinedByString:@"|"]
                                                block:^(NSArray *places, NSError *error) {
-                                                   
-                                                   [self.gmsMapView clear];
-                                                   
-                                                   @autoreleasepool {
-                                                       for (Place *place in places) {
-                                                           GMSMarker *marker = [GMSMarker markerWithPosition:place.location];
-                                                           marker.infoWindowAnchor = CGPointMake(0.44f, 0.45f);
-                                                           marker.title = place.name;
-                                                           marker.map = self.gmsMapView;
-                                                           marker.userData = place;
-                                                       }
+                                                   if (places) {
+                                                       self.places = places;
+                                                       [self.gmsMapView clear];
+                                                       [self addMarkers:self.places];
+                                                       [self drawPath:self.places];
+                                                       [self showLocationFetchSuccessNotification:self.places.count];
+                                                   }else {
+                                                       [self showLocationFetchErrorNotification];
                                                    }
                                                }];
 }
 
+-(void)showLocationFetchNotification {
+    [TSMessage showNotificationWithTitle:@"Hang on!"
+                                subtitle:@"I'm looking for interesting places around you"
+                                    type:TSMessageNotificationTypeWarning];
+}
+
+-(void)showLocationFetchSuccessNotification:(long)placeCount{
+    [TSMessage showNotificationWithTitle:@"Yay!"
+                                subtitle:[NSString stringWithFormat:@"I found %ld places" , placeCount]
+                                    type:TSMessageNotificationTypeSuccess];
+}
+
+-(void)showLocationFetchErrorNotification{
+    [TSMessage showNotificationWithTitle:@"Uh-oh!"
+                                subtitle:@"We cannot do a search at the moment"
+                                    type:TSMessageNotificationTypeError];
+}
+
+- (void)addMarkers:(NSArray *)places {
+    for (Place *place in places) {
+        @autoreleasepool {
+            GMSMarker *marker = [GMSMarker markerWithPosition:
+                                 place.location.coordinate];
+            marker.infoWindowAnchor = CGPointMake(0.44f, 0.45f);
+            marker.title = place.name;
+            marker.map = self.gmsMapView;
+            marker.userData = place;
+        }
+    }
+}
+
+- (void)drawPath:(NSArray *)places {
+    
+    GMSMutablePath *path = [GMSMutablePath path];
+    [path addCoordinate:self.currentLocation.coordinate];
+    
+    for (Place *nextPlace in self.places) {
+        @autoreleasepool {
+            [path addCoordinate:nextPlace.location.coordinate];
+        }
+    }
+    
+    GMSPolyline *pathPolyline = [GMSPolyline polylineWithPath:path];
+    pathPolyline.map = self.gmsMapView;
+}
 #pragma mark - SettingsTableViewDelegate
 
 - (void)didUpdateSettings:(NSMutableDictionary *)updatedSettings {
     [self.placeService modifySupportedTypes:updatedSettings];
     // Retrieve places of interest
-    [self retrievePlacesOfInterest:self.currentLocation.coordinate];
+    [self retrievePlacesOfInterest:self.currentLocation];
 }
 
 - (void)dealloc {

@@ -12,6 +12,7 @@
 @interface SettingsTableViewController ()
 
 @property (strong, nonatomic) NSArray *supportedTypes;
+@property (strong, nonatomic) NSArray *imageIcons;
 
 @end
 
@@ -21,7 +22,10 @@
     [super viewDidLoad];
     // Keys should be the display value
     self.supportedTypes = [self.supportedSettings allKeys];
+    self.imageIcons = @[@"museum-71", @"aquarium-71", @"art_gallery-71",
+                        @"shopping-71", @"stadium-71", @"amusement-71", @"zoo-71"];
     
+    self.navigationItem.title = @"Settings";
 }
 
 #pragma mark - Table view data source
@@ -41,12 +45,16 @@
     NSString *settingType = [self.supportedTypes objectAtIndex:indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TypeCell" forIndexPath:indexPath];
-    cell.textLabel.text = settingType;
-    [cell.imageView setImage:[UIImage imageNamed:@"art_gallery-71"]];
+    cell.textLabel.text = [self formatSettingType:settingType];
+    [cell.imageView setImage:[UIImage imageNamed:[self.imageIcons objectAtIndex:indexPath.row]]];
     
     [self toggleCheckMarkWithCell:cell activated:[[self.supportedSettings
                                                    objectForKey:settingType] boolValue]];
     return cell;
+}
+
+-(NSString *)formatSettingType:(NSString *)currentValue{
+    return [[currentValue stringByReplacingOccurrencesOfString: @"_" withString:@" "] capitalizedString];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

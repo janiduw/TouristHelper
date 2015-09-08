@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *iconUrl;
 @property (nonatomic, strong) NSString *aboutUrl;
 @property (nonatomic, strong) CLLocation *location;
-
+@property (nonatomic, assign) BOOL visited;
 /**
  *  Initalizes a place with given attributes
  *

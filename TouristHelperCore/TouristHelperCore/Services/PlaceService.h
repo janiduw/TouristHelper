@@ -71,6 +71,9 @@
 - (NSArray *)sortPlacesByDistance:(NSArray *)places
                   currentLocation:(CLLocation *)currentLocation;
 
+- (Place *)getNextNearbyPlace:(NSArray *)places
+              currentLocation:(CLLocation *)currentLocation;
+
 /**
  *  Retrieves supported search types
  *

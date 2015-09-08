@@ -29,15 +29,19 @@ PODS:
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
   - GoogleMaps (1.10.2)
+  - HexColors (2.2.1)
   - PureLayout (3.0.1)
   - TouristHelperCore (0.0.1):
     - AFNetworking
     - CocoaLumberjack
     - GoogleMaps
+  - TSMessages (0.9.12):
+    - HexColors (~> 2.2.0)
 
 DEPENDENCIES:
   - PureLayout
   - TouristHelperCore (from `../TouristHelperCore`)
+  - TSMessages
 
 EXTERNAL SOURCES:
   TouristHelperCore:
@@ -47,7 +51,9 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   TouristHelperCore: 4d38ca6e66f95ca87fe1b7c2f56bd346c13f8d2f
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
 COCOAPODS: 0.38.2
