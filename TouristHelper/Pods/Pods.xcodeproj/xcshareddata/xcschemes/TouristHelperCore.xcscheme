@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4756629CBC3241A7DEEF6614"
+               BlueprintIdentifier = "7593F5CA3E2ECD81C3F51AA9"
                BuildableName = "libTouristHelperCore.a"
                BlueprintName = "TouristHelperCore"
                ReferencedContainer = "container:Pods.xcodeproj">

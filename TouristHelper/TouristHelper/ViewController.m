@@ -16,6 +16,7 @@
 #import <TouristHelperCore/TouristHelperCore.h>
 #import "CustomInfoView.h"
 #import <TSMessages/TSMessage.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIView *mapView;
@@ -73,6 +74,8 @@
     self.customView =  [[[NSBundle mainBundle] loadNibNamed:@"CustomInfoView"
                                                       owner:self
                                                     options:nil] objectAtIndex:0];
+    self.customView.layer.cornerRadius = 10;
+    self.customView.layer.masksToBounds = YES;
     
     Place *place = (Place *) marker.userData;
     
