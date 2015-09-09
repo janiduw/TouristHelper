@@ -21,7 +21,7 @@ An application helping out tourists with nearby locations.
 | As a user, I would like to see a map, so that I could browse through locations | Done
 | As a user, I would like to see my current location, so that I see my current location on the map | Done
 | As a user, I would like to see interesting places in a map, so that I could find an interesting place to visit | Done
-| As a user, I would like to find more information about an interesting place, so that I could call visit the place | Done
+| As a user, I would like to find more information about an interesting place, so that I could visit the place | Done
 | As a user, I would like to get a crow path route of my map, so that I could find the best route to take | Done
 
 ### High-level architecture
