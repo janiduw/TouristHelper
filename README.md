@@ -48,5 +48,5 @@ These are the advantages of extracting core services onto a separate framework.
 
 #### Google Maps iOS SDK vs Google Maps Web services
 
-Google Maps iOS SDK only exposes limited set of APIs to do a location search. Therefore I used made requests to the Google Maps Web services.
+Google Maps iOS SDK only exposes limited set of APIs to do a location search. Therefore I made requests to the Google Maps Web services.
 Google Maps iOS SDK was mainly used for Map rendering.
