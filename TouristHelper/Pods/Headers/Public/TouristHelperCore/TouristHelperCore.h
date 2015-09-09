@@ -1,0 +1,1 @@
+../../../../../TouristHelperCore/TouristHelperCore/TouristHelperCore.h

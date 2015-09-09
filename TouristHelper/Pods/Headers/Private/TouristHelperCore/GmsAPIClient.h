@@ -1,0 +1,1 @@
+../../../../../TouristHelperCore/TouristHelperCore/Networking/GmsAPIClient.h
