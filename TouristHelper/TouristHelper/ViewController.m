@@ -62,6 +62,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    
+    if (self.currentLocation) {
+        // Retrieve places of interest if coming back from another screen
+        [self retrievePlacesOfInterest:self.currentLocation];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -165,7 +170,7 @@
                                               radius:1000
                                       supportedTypes:[supportedTypes componentsJoinedByString:@"|"]
                                                block:^(NSArray *places, NSError *error) {
-                                                   if (places) {
+                                                   if (places && places.count != 0) {
                                                        self.places = places;
                                                        [self.gmsMapView clear];
                                                        [self addMarkers:self.places];
@@ -183,15 +188,15 @@
                                     type:TSMessageNotificationTypeWarning];
 }
 
--(void)showLocationFetchSuccessNotification:(long)placeCount{
+-(void)showLocationFetchSuccessNotification:(long)placeCount {
     [TSMessage showNotificationWithTitle:@"Yay!"
                                 subtitle:[NSString stringWithFormat:@"I found %ld places" , placeCount]
                                     type:TSMessageNotificationTypeSuccess];
 }
 
--(void)showLocationFetchErrorNotification{
+-(void)showLocationFetchErrorNotification {
     [TSMessage showNotificationWithTitle:@"Uh-oh!"
-                                subtitle:@"We cannot do a search at the moment"
+                                subtitle:@"I cannot do a search at the moment"
                                     type:TSMessageNotificationTypeError];
 }
 
@@ -211,6 +216,7 @@
 - (void)drawPath:(NSArray *)places {
     
     GMSMutablePath *path = [GMSMutablePath path];
+    // Path shoudl start at the current location
     [path addCoordinate:self.currentLocation.coordinate];
     
     for (Place *nextPlace in self.places) {
@@ -219,6 +225,10 @@
         }
     }
     
+    // Path should end at the current location
+    [path addCoordinate:self.currentLocation.coordinate];
+    
+    // Add path to the map
     GMSPolyline *pathPolyline = [GMSPolyline polylineWithPath:path];
     pathPolyline.map = self.gmsMapView;
 }
@@ -226,8 +236,6 @@
 
 - (void)didUpdateSettings:(NSMutableDictionary *)updatedSettings {
     [self.placeService modifySupportedTypes:updatedSettings];
-    // Retrieve places of interest
-    [self retrievePlacesOfInterest:self.currentLocation];
 }
 
 - (void)dealloc {
