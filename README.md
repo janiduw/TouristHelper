@@ -28,6 +28,13 @@ An application helping out tourists with nearby locations.
 
 ![](readme_resources/highlevel_architecture.png?raw=true)
 
+#### TouristHelperCore
+
+These are the advantages of extracting core services onto a separate framework.
+
+* Improves testability
+* Makes core functionality reusable between future applications
+
 #### 3rd party libraries/frameworks
 
 | Name         | Reason        |
@@ -43,10 +50,3 @@ An application helping out tourists with nearby locations.
 
 Google Maps iOS SDK only exposes limited set of APIs to do a location search. Therefore I used made requests to the Google Maps Web services.
 Google Maps iOS SDK was mainly used for Map rendering.
-
-#### TouristHelperCore
-
-These are the advantages of extracting core services onto a separate framework.
-
-* Improves testability
-* Makes core functionality reusable between future applications
