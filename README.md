@@ -5,8 +5,8 @@ An application helping out tourists with nearby locations.
 
 1. Clone the repository
 
-TouristHelper - The application project
-TouristHelperCore - Framework project with reusable components
+* TouristHelper - The application project
+* TouristHelperCore - Framework project with reusable components
 
 2. Pod install on TouristHelper
 
