@@ -9,7 +9,7 @@
 		<key>aquarium</key>
 		<true/>
 		<key>art_gallery</key>
-		<false/>
+		<true/>
 		<key>museum</key>
 		<true/>
 		<key>shopping_mall</key>

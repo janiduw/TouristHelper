@@ -21,8 +21,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    // Initialize GMSServices with API Key
     [GMSServices provideAPIKey:GMS_API_KEY];
+    
+    // Setup log service with console and terminal logging
+    [[LogService sharedInstance] setup];
+    
+    // Initialize Place Service
+    [PlaceService sharedInstance].apiKey = GMS_API_KEY;
+    
     return YES;
 }
 

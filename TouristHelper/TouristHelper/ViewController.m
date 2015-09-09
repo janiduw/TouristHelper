@@ -11,29 +11,32 @@
 #import "ViewController.h"
 
 #import "Constants.h"
+#import "CustomInfoView.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <PureLayout/PureLayout.h>
 #import <TouristHelperCore/TouristHelperCore.h>
-#import "CustomInfoView.h"
 #import <TSMessages/TSMessage.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIView *mapView;
 @property (strong, nonatomic) GMSMapView *gmsMapView;
-@property (assign, nonatomic) BOOL firstLocationUpdate;
 @property (strong, nonatomic) PlaceService *placeService;
 @property (strong, nonatomic) NSMutableDictionary *supportedTypes;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) CustomInfoView *customView;
 @property (strong, nonatomic) NSArray *places;
+@property (assign, nonatomic) BOOL firstLocationUpdate;
 @end
 
 @implementation ViewController
 
+#pragma mark - ViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Default location is set to Sydney
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
                                                             longitude:151.20
                                                                  zoom:13];
@@ -45,6 +48,8 @@
     self.gmsMapView.myLocationEnabled = YES;
     [self.mapView addSubview:self.gmsMapView];
     
+    [[LogService sharedInstance] logInfoWithFormat:@"Added Map view"];
+    
     // Size to fit the screen with zero insets
     [self.gmsMapView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
@@ -53,20 +58,19 @@
                          options:NSKeyValueObservingOptionNew
                          context:NULL];
     
-    self.placeService = [[PlaceService alloc] init];
-    self.placeService.apiKey = GMS_API_KEY;
-    
-    self.supportedTypes = [[[PlaceService sharedInstance] getSupportedTypes] mutableCopy];
+    self.placeService = [PlaceService sharedInstance];
+    self.supportedTypes = [[self.placeService getSupportedTypes] mutableCopy];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
     
+    // Retrieve places of interest if coming back from another screen
     if (self.currentLocation) {
-        // Retrieve places of interest if coming back from another screen
         [self retrievePlacesOfInterest:self.currentLocation];
     }
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -74,55 +78,30 @@
     [super viewWillDisappear:animated];
 }
 
-- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
-    
-    self.customView =  [[[NSBundle mainBundle] loadNibNamed:@"CustomInfoView"
-                                                      owner:self
-                                                    options:nil] objectAtIndex:0];
-    self.customView.layer.cornerRadius = 10;
-    self.customView.layer.masksToBounds = YES;
-    
-    Place *place = (Place *) marker.userData;
-    
-    if (place.address) {
-        // If details are present set it to the view
-        self.customView.address.text = place.address;
-        self.customView.name.text = place.name;
-        self.customView.phoneNumber.text = place.phoneNumber;
-        self.customView.activityIndicator.hidden = YES;
-        
-    }else {
-        // If not retreve place details
-        [self.placeService retrievePlaceDetails:place block:^(Place *place, NSError *error) {
-            // Select the marker again for the view to be refreshed
-            [mapView setSelectedMarker:marker];
-        }];
-    }
-    
-    if(place.photo){
-        // If a photo is present display it
-        self.customView.bannerImage.image = place.photo;
-    }else {
-        // Retreive the image
-        NSURL *url = [NSURL URLWithString:[self.placeService retrievePlaceImageUrlWithPlace:place]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        [self.customView.bannerImage setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder_location"]
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                        place.photo = image;
-                                                        // Select the marker again for the view to be refreshed
-                                                        [mapView setSelectedMarker:marker];
-                                                    }
-                                                    failure:NULL];
-    }
-    
-    return self.customView;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [[LogService sharedInstance] logInfoWithFormat:@"Displaying settings table view"];
     SettingsTableViewController *settingsViewController = (SettingsTableViewController *) segue.destinationViewController;
     settingsViewController.supportedSettings = self.supportedTypes;
     settingsViewController.delegate = self;
 }
+
+- (void)dealloc {
+    [self.gmsMapView removeObserver:self
+                         forKeyPath:@"myLocation"
+                            context:NULL];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - SettingsTableViewDelegate
+
+- (void)didUpdateSettings:(NSMutableDictionary *)updatedSettings {
+    [self.placeService modifySupportedTypes:updatedSettings];
+}
+
 
 #pragma mark - KVO updates
 
@@ -131,10 +110,11 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     
-    CLLocationDistance distanceThreshold = 2.0;
+    CLLocationDistance distanceThreshold = 100.0;
     CLLocation *locationUpdate = [change objectForKey:NSKeyValueChangeNewKey];
     
-    if (!self.currentLocation || [locationUpdate distanceFromLocation:self.currentLocation] > distanceThreshold){
+    if (!self.currentLocation || [locationUpdate distanceFromLocation:
+                                  self.currentLocation] > distanceThreshold){
         self.currentLocation = [change objectForKey:NSKeyValueChangeNewKey];
         self.firstLocationUpdate = NO;
     }
@@ -153,10 +133,15 @@
     }
 }
 
+#pragma mark - Place retrieval
+
 - (void)retrievePlacesOfInterest:(CLLocation *)currentLocation {
+    
+    [[LogService sharedInstance] logInfoWithFormat:@"Retrieve places of interest"];
     
     [self showLocationFetchNotification];
     
+    // Fetch only enabled supported types
     NSMutableArray *supportedTypes = [NSMutableArray new];
     @autoreleasepool {
         for (NSString *typeKey in [self.supportedTypes allKeys]) {
@@ -182,6 +167,8 @@
                                                }];
 }
 
+#pragma mark - Notifications
+
 -(void)showLocationFetchNotification {
     [TSMessage showNotificationWithTitle:@"Hang on!"
                                 subtitle:@"I'm looking for interesting places around you"
@@ -196,8 +183,59 @@
 
 -(void)showLocationFetchErrorNotification {
     [TSMessage showNotificationWithTitle:@"Uh-oh!"
-                                subtitle:@"I cannot do a search at the moment"
+                                subtitle:@"I cannot find any places at the moment"
                                     type:TSMessageNotificationTypeError];
+}
+
+#pragma mark - Google Map overlays
+
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    
+    [[LogService sharedInstance] logInfoWithFormat:@"Displaying markerInfoWindow"];
+    
+    // Initialize a custom view to display POI information
+    self.customView = [[[NSBundle mainBundle] loadNibNamed:@"CustomInfoView"
+                                                     owner:self
+                                                   options:nil] objectAtIndex:0];
+    self.customView.layer.cornerRadius = 10;
+    self.customView.layer.masksToBounds = YES;
+    
+    Place *place = (Place *) marker.userData;
+    if (place.address) {
+        // If details are present set it to the view
+        self.customView.address.text = place.address;
+        self.customView.name.text = place.name;
+        self.customView.phoneNumber.text = place.phoneNumber;
+        self.customView.activityIndicator.hidden = YES;
+    }else {
+        // If not retreve place details
+        [self.placeService retrievePlaceDetails:place block:^(Place *place, NSError *error) {
+            // Select the marker again for the view to be refreshed
+            [mapView setSelectedMarker:marker];
+        }];
+    }
+    
+    if(place.photo){
+        // If a photo is present display it
+        self.customView.bannerImage.image = place.photo;
+    }else {
+        
+        // Retreive the image
+        NSURL *url = [NSURL URLWithString:[self.placeService retrievePlaceImageUrlWithPlace:place]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        
+        [self.customView.bannerImage setImageWithURLRequest:request
+                                           placeholderImage:[UIImage imageNamed:@"placeholder_location"]
+                                                    success:^(NSURLRequest *request,
+                                                              NSHTTPURLResponse *response, UIImage *image) {
+                                                        place.photo = image;
+                                                        // Select the marker again for the view to be refreshed
+                                                        [mapView setSelectedMarker:marker];
+                                                    }
+                                                    failure:NULL];
+    }
+    
+    return self.customView;
 }
 
 - (void)addMarkers:(NSArray *)places {
@@ -231,22 +269,6 @@
     // Add path to the map
     GMSPolyline *pathPolyline = [GMSPolyline polylineWithPath:path];
     pathPolyline.map = self.gmsMapView;
-}
-#pragma mark - SettingsTableViewDelegate
-
-- (void)didUpdateSettings:(NSMutableDictionary *)updatedSettings {
-    [self.placeService modifySupportedTypes:updatedSettings];
-}
-
-- (void)dealloc {
-    [self.gmsMapView removeObserver:self
-                         forKeyPath:@"myLocation"
-                            context:NULL];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
